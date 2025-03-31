@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { FilterDialog } from "@/components/provider/filter-dialog";
+import { SettingsDialog } from "@/components/provider/settings-dialog";
+import { ChatInitializer } from "@/components/provider/chat-initializer";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -23,11 +26,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <div className="w-full h-screen flex flex-row dark:bg-zinc-800">
+          {children}
+        </div>
+        <ChatInitializer />
+        <FilterDialog />
+        <SettingsDialog />
       </body>
     </html>
   );

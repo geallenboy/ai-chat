@@ -5,7 +5,6 @@ import React, { useEffect, useRef } from "react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Warning } from "@phosphor-icons/react";
 import { motion } from "framer-motion";
-import Spinner from "@/components/ui/loading-spinner";
 import { Avatar } from "@/components/ui/avatar";
 import dayjs from "dayjs";
 import { getRelativeDate } from "@/lib/date";

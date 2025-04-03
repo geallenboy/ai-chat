@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { PromptType, RoleType } from "@/lib/prompts";
 import { Button } from "@/components/ui/button";
-import { Command, Plus, Sparkle } from "@phosphor-icons/react";
+import { ArrowElbowDownLeft, Plus, StarFour } from "@phosphor-icons/react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
@@ -88,7 +88,7 @@ const ChatInput = () => {
       >
         {isNewSession ? (
           <div className="min-w-8 h-8 flex justify-center items-center">
-            <Sparkle size={24} weight="fill" />
+            <StarFour size={24} weight="fill" />
           </div>
         ) : (
           <Button size={"icon"} className="min-w-8 h-8">
@@ -108,7 +108,7 @@ const ChatInput = () => {
           }}
         />
         <Badge>
-          <Command size={14} weight="bold" />K
+          <ArrowElbowDownLeft size={14} weight="bold" />K
         </Badge>
       </motion.div>
 

@@ -1,30 +1,32 @@
 "use client";
-//app/chat/[sessionId]/page.tsx
-import React from "react";
-import { DotsThree } from "@phosphor-icons/react";
-import ChatInput from "@/components/feature/chat-input";
-import ChatMessages from "@/components/feature/chat-message";
-import ModelSelect from "@/components/feature/model-select";
-import { Avatar } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-import { useSettingsStore } from "@/stores/settings-store";
+import { ChatInput } from "@/components/chat/chat/chat-input";
+import { ChatMessages } from "@/components/chat/messages/chat-messages";
+import { Navbar } from "@/components/chat/layout/navbar";
+import Spinner from "@/components/ui/loading-spinner";
+import { useSessionsContext } from "@/context";
 
 const ChatSessionPage = () => {
-  const { open } = useSettingsStore();
-  return (
-    <div className="w-full h-screen flex flex-row relative overflow-hidden">
-      <div className="absolute flex justify-between items-center flex-row top-0 left-0 bg-gradient-to-b dark:from-zinc-800 dark:to-transparent from-70% to-white/10 z-10 right-0">
-        <p className="p-2 text-sm text-zinc-500">ChatHub</p>
-        <div className="flex flex-row gap-2 items-center">
-          <ModelSelect />
-          <Avatar name={"AI"} />
-          <Button variant={"secondary"} size={"icon"} onClick={open}>
-            <DotsThree size={20} weight="bold" />
-          </Button>
-        </div>
+  const { isCurrentSessionLoading, isAllSessionLoading } = useSessionsContext();
+
+  const renderLoader = () => {
+    return (
+      <div className="w-full h-full flex justify-center items-center">
+        <Spinner />
       </div>
-      <ChatMessages />
-      <ChatInput />
+    );
+  };
+
+  const isLoading = isCurrentSessionLoading || isAllSessionLoading;
+  return (
+    <div className="w-full h-[100%] bg-white dark:bg-zinc-800 rounded-xl flex flex-row relative overflow-hidden">
+      <Navbar />
+      {isLoading && renderLoader()}
+      {!isLoading && (
+        <>
+          <ChatMessages />
+          <ChatInput />
+        </>
+      )}
     </div>
   );
 };

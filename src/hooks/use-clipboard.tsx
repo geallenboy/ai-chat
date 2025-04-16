@@ -1,31 +1,32 @@
 import { useCallback, useState } from "react";
 
 type CopiedValue = string | null;
+
 type CopyFn = (text: string) => Promise<boolean>;
 
 export function useClipboard() {
   const [copiedText, setCopiedText] = useState<CopiedValue>(null);
-  const [showCopied, setshowCopied] = useState<boolean>(false);
+  const [showCopied, setShowCopied] = useState<boolean>(false);
 
   const copy: CopyFn = useCallback(async (text) => {
-    if (!navigator.clipboard) {
+    if (!navigator?.clipboard) {
+      console.warn("剪贴板不受支持");
       return false;
     }
     try {
       await navigator.clipboard.writeText(text);
       setCopiedText(text);
-      setshowCopied(true);
+      setShowCopied(true);
       setTimeout(() => {
-        setshowCopied(false);
-      }, 1500);
+        setShowCopied(false);
+      }, 2000);
       return true;
-    } catch (err) {
+    } catch (error) {
+      console.warn("Copy failed", error);
       setCopiedText(null);
-      setshowCopied(false);
-      console.error("Failed to copy: ", err);
       return false;
     }
   }, []);
 
-  return { copy, copiedText, showCopied };
+  return { copiedText, copy, showCopied };
 }
